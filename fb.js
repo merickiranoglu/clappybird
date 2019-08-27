@@ -12,9 +12,6 @@ var wechat = false;
 var playend = false, playdata = [];
 var wxData;
 
-
-
-
 var clearCanvas = function(){
 	ctx.fillStyle = '#4EC0CA';
 	ctx.fillRect(0, 0, width, height);
@@ -96,17 +93,20 @@ var initCanvas = function(){
 	ctx = canvas.getContext('2d');
 	canvas.width = width = window.innerWidth;
 	canvas.height = height = window.innerHeight;
-	if(is_touch_device()){
-		canvas.addEventListener("touchend", function(e) { e.preventDefault(); }, false);
-        canvas.addEventListener("touchstart", function(e) {
-	        	jump();
-            e.preventDefault();
-        }, false);
-	}
-	else
-		canvas.onmousedown = jump;
+
+	// Burayı sildim attım anasını satayım.
+	// if(is_touch_device()){
+	// 	canvas.addEventListener("touchend", function(e) { e.preventDefault(); }, false);
+    //     canvas.addEventListener("touchstart", function(e) {
+	//         	jump();
+    //         e.preventDefault();
+    //     }, false);
+	// }
+	// else
+	// 	canvas.onmousedown = jump;
 		
-	window.onkeydown = jump;
+	// window.onkeydown = jump;
+	
 	FastClick.attach(canvas);
 	loadImages();
 }
@@ -382,7 +382,7 @@ function hidden(){
 }
 
 window.onload = function(){
-    //document.addEventListener("touchend", function(e) { e.preventDefault(); }, false);
+	//document.addEventListener("touchend", function(e) { e.preventDefault(); }, false);
     mode = 0;
     score = 0;
     playdata = [0, 0];
