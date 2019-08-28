@@ -11,6 +11,17 @@ var mode, delta;
 var wechat = false;
 var playend = false, playdata = [];
 var wxData;
+var mic;
+
+// Create an Audio input
+mic = new p5.AudioIn();
+
+function draw(){
+	micLevel = mic.getLevel();
+	
+	if(micLevel > 0.1)
+		jump();
+}
 
 var clearCanvas = function(){
 	ctx.fillStyle = '#4EC0CA';
@@ -93,6 +104,11 @@ var initCanvas = function(){
 	ctx = canvas.getContext('2d');
 	canvas.width = width = window.innerWidth;
 	canvas.height = height = window.innerHeight;
+
+	
+	// start the Audio Input.
+	// By default, it does not .connect() (to the computer speakers)
+	mic.start();
 
 	// Burayı sildim attım anasını satayım.
 	// if(is_touch_device()){
