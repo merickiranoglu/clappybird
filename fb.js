@@ -11,16 +11,27 @@ var mode, delta;
 var wechat = false;
 var playend = false, playdata = [];
 var wxData;
+
 var mic;
 
-// Create an Audio input
-mic = new p5.AudioIn();
+function setup() {
+  // Create an Audio input
+  mic = new p5.AudioIn();
+
+  // start the Audio Input.
+  // By default, it does not .connect() (to the computer speakers)
+  mic.start();
+}
 
 function draw(){
 	micLevel = mic.getLevel();
 	
-	if(micLevel > 0.1)
+	if(micLevel > 0.2)
 		jump();
+}
+
+function touchStarted() {
+	getAudioContext().resume()
 }
 
 var clearCanvas = function(){
@@ -105,12 +116,12 @@ var initCanvas = function(){
 	canvas.width = width = window.innerWidth;
 	canvas.height = height = window.innerHeight;
 
+	canvas.onclick = function() {
+		if(death) {
+			jump();
+		}
+	}
 	
-	// start the Audio Input.
-	// By default, it does not .connect() (to the computer speakers)
-	mic.start();
-
-	// Burayı sildim attım anasını satayım.
 	// if(is_touch_device()){
 	// 	canvas.addEventListener("touchend", function(e) { e.preventDefault(); }, false);
     //     canvas.addEventListener("touchstart", function(e) {
@@ -302,35 +313,6 @@ var jump = function(){
 		birdV = 6;
 }
 
-var clapjump = function(){
-	if(death){
-		dist = 0;
-		birdY = (height - 112) / 2;
-		birdF = 0;
-		birdN = 0;
-		birdV = 0;
-		death = 0;
-		score = 0;
-		birdPos = width * 0.35;
-		pipeSt = 0;
-		pipeNumber = 10;
-		pipes = [];
-		pipesDir = [];
-		for(var i = 0; i < 10; ++i){
-			pipes.push(Math.floor(Math.random() * (height - 300 - delta) + 10));
-			pipesDir.push((Math.random() > 0.5));
-		}
-		anim();
-	}
-	if(mode == 0)
-		birdV = 6;
-	else if(mode == 1)
-		birdV = 6;
-	else
-		birdV = 6;
-}
-
-
 var easy, normal, hard, clap;
 
 function easyMode(){
@@ -382,8 +364,6 @@ function clapMode(){
 	mode = 1;
 	delta = 100;
 	initCanvas();
-
-
 }
 
 
@@ -398,8 +378,10 @@ function hidden(){
 }
 
 window.onload = function(){
-	//document.addEventListener("touchend", function(e) { e.preventDefault(); }, false);
-    mode = 0;
+	
+	// document.addEventListener("touchend", function(e) { e.preventDefault(); }, false);
+	
+	mode = 0;
     score = 0;
     playdata = [0, 0];
     if(window.window.WeixinApi || window.WeixinJSBridge) {
