@@ -1,13 +1,7 @@
-FlappyBird
+ClappyBird
 ==========
 
-Flappy Bird game in browser. PC / Touch-screen device supported.
+Clappy Bird is a mutated FlappyBird game. The bird jumps when you clap your hands.
 
-(2014.9.5) WeChat share API added.
-
-http://shud.in/flappybird
-
-----
-
-Author: github.com/quietshu
-Email: ds303077135@gmail.com
+==========
+Meriç Kıranoğlu
